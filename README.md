@@ -1,59 +1,119 @@
-Worm Propagator Batch Script (worm_propagator.bat)
+# Worm Propagation Script - Educational Tool
 
-Version: 1.1 (Improved Version)
-Author: Donwell
-Purpose: Educational Self-Propagation Script
-Overview
+```markdown
+# Worm Propagation Simulation Script
 
-This batch script (worm_propagator.bat) is designed to propagate itself and an accompanying helper executable (EnhancedCleanup.exe) across all accessible drives on a Windows machine, excluding the drive where the script is currently running. For each target drive, it copies:
+![Batch Script](https://img.shields.io/badge/language-Batch-blue)
+![Educational Use](https://img.shields.io/badge/purpose-educational-green)
+![Version](https://img.shields.io/badge/version-1.1-orange)
 
-    The worm script itself (worm.bat)
+## 📌 Overview
+This batch script simulates worm-like propagation behavior for educational purposes only. It demonstrates how malware might spread through removable drives by:
+- Copying itself to target drives
+- Creating autorun.inf files for automatic execution
+- Propagating a helper executable (if available)
 
-    A helper executable (EnhancedCleanup.exe), if present
+**Important:** This script is designed for cybersecurity education and research. Never deploy it on live systems without explicit permission.
 
-    An autorun.inf file configured to automatically execute the worm script when the drive is accessed
+## ⚠️ Legal & Ethical Notice
+```plaintext
+THIS SOFTWARE IS PROVIDED "AS IS" FOR EDUCATIONAL PURPOSES ONLY. 
+THE AUTHOR DISCLAIMS ALL RESPONSIBILITY FOR ILLEGAL OR UNETHICAL USE. 
+UNAUTHORIZED DEPLOYMENT MAY VIOLATE LOCAL AND INTERNATIONAL LAWS.
 
-Features
+Use only in controlled environments with proper authorization.
+```
 
-    Enumerates all logical drives on the system (except the source drive).
+## 🛠 Prerequisites
+1. Windows operating system
+2. Command Prompt/PowerShell access
+3. Removable drives for testing (USB drives recommended)
+4. Helper executable (Optional: `EnhancedCleanup.exe`)
 
-    Skips drives that are inaccessible or already contain an autorun.inf file (to avoid overwriting or redundant actions).
+## 📂 File Structure
+```
+worm_propagator.bat      # Main propagation script
+EnhancedCleanup.exe      # Optional helper executable (not included)
+README.md                # This documentation
+```
 
-    Copies the worm script and helper executable (if available) to each target drive.
+## 🔧 How It Works
 
-    Creates an autorun.inf file that launches the worm script automatically when the drive is accessed.
+### Core Functionality
+1. **Self-Propagation**:
+   - Detects all available drives
+   - Copies itself to removable drives
+   - Skips the source drive to prevent recursion
 
-    Provides detailed console output to track progress, success, and errors for each drive.
+2. **Autorun Creation**:
+   - Generates `autorun.inf` files
+   - Configures autorun to execute the script when drive is accessed
 
-Important Notes
+3. **Helper Deployment**:
+   - Copies `EnhancedCleanup.exe` if present in source directory
+   - Sets executable as drive icon
 
-    Educational Use Only: This script is intended purely for educational purposes, such as demonstrating self-replication and autorun file mechanics.
+### Key Features
+- Drive accessibility checks
+- Existing autorun detection
+- Error handling for read-only drives
+- Detailed progress reporting
+- Skip logic for current drive
 
-    Ethical Responsibility: Never use this script maliciously or without explicit permission on any system. Unauthorized propagation or execution can cause harm, legal issues, and data loss.
+## 🚀 Usage Instructions
 
-    Helper Executable: The script attempts to copy EnhancedCleanup.exe if it exists in the same directory. If missing, propagation continues but some intended functionality might be limited.
+1. **Basic Execution**:
+   ```cmd
+   worm.bat
+   ```
 
-    Permissions: Running this script may require administrative privileges depending on the drives' access policies. Failure to copy files may result from read-only drives or insufficient permissions.
+2. **Configuration Options**:
+   - Modify these variables at the top of the script:
+     ```bat
+     set "WORM_FILENAME=worm.bat"
+     set "HELPER_EXE_FILENAME=EnhancedCleanup.exe"
+     set "AUTORUN_FILENAME=autorun.inf"
+     ```
 
-    Autorun.inf Behavior: Many modern Windows versions restrict or disable autorun execution from removable drives for security reasons. This script demonstrates the technique but actual autorun execution might be blocked by OS protections.
+3. **Expected Output**:
+   ```
+   [*] Initializing Propagation Script...
+   [*] Script Name: worm.bat
+   [*] Running from Drive: C:
+   [*] Helper Executable: EnhancedCleanup.exe
+   ...
+   [+] Successfully copied "worm.bat" to E:
+   [+] Creating "autorun.inf" on E:
+   ```
 
-Usage
+## ⚠️ Limitations & Notes
+- Requires write access to target drives
+- Modern Windows versions often disable autorun by default
+- Antivirus software may detect/block execution
+- Helper executable (`EnhancedCleanup.exe`) must be provided separately
+- Script will skip drives with existing autorun.inf files
 
-    Place worm_propagator.bat and the optional EnhancedCleanup.exe helper executable in the same folder.
+## 🔒 Safety Precautions
+1. Only run in virtual machines or isolated environments
+2. Disable network connectivity during testing
+3. Remove all production drives before execution
+4. Monitor with antivirus software
+5. Delete created files immediately after testing
 
-    Run the script from the command prompt (preferably with administrator privileges for full effect).
+## 📜 License
+Educational Use Only - No redistribution permitted. All use assumes acceptance of liability by the user.
 
-    Observe the console output for propagation status and errors.
+---
 
-    Check target drives for copied files and autorun.inf.
+**Created by Donwell | Version 1.1 | For Educational Purposes Only**
+```
 
-Script Variables (for customization)
-Variable	Description	Default Value
-WORM_FILENAME	Name of the worm script to copy and run	worm.bat
-HELPER_EXE_FILENAME	Name of the helper executable file	EnhancedCleanup.exe
-AUTORUN_FILENAME	Autorun configuration filename	autorun.inf
+## Recommended Folder Structure
+```
+/worm_propagation_simulation/
+├── worm_propagator.bat       # Main script
+├── EnhancedCleanup.exe       # Optional helper (not included)
+└── README.md                 # This documentation
+```
 
-You may rename these variables and corresponding files as needed, but ensure consistency for proper operation.
-Disclaimer
-
-This script is provided "as-is" for learning and experimentation. The author is not responsible for any damage, data loss, or legal consequences arising from misuse or unauthorized execution.
+This README provides comprehensive documentation while emphasizing the educational nature of the script and including critical warnings about responsible usage. The structure covers functionality, usage instructions, and important safety considerations.
